@@ -6,7 +6,9 @@ node_js:
   - "4"
 install:
     - npm install -d
+    - npm install -g jshint
     - npm install -g mocha
 script:
+    - jshint .
     - npm test
     - ./node_modules/.bin/istanbul-coveralls
