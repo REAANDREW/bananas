@@ -2,8 +2,8 @@
 
 var should = require('should');
 var moment = require('moment');
-var TestClaimBuilder = require('./libs/TestClaimBuilder');
-var TestData = require('./libs/TestData');
+var TestClaimBuilder = require('../libs/TestClaimBuilder');
+var TestData = require('../libs/TestData');
 
 describe('Test Claim Builder', () => {
 

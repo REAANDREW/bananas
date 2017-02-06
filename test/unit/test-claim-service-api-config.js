@@ -1,7 +1,7 @@
 'use strict';
 
 var should = require('should');
-var ClaimServiceApiConfig = require('../libs/apis/ClaimServiceApiConfig');
+var ClaimServiceApiConfig = require('../../libs/apis/ClaimServiceApiConfig');
 
 describe('Claim Service API Configuration', () => {
 

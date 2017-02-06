@@ -11,7 +11,7 @@ function HmrcApiTestDouble(){
             returnResult : (result) => {
                 dict[nino] = result;   
             }
-        }
+        };
     };
 
     self.getNic = (nino, callback) => {

@@ -1,12 +1,12 @@
 'use strict';
 
 var should = require('should');
-var HmrcApiTestDouble = require('./libs/HmrcApiTestDouble');
+var HmrcApiTestDouble = require('../libs/HmrcApiTestDouble');
 
 describe('HMRC Test Double', () => {
     
     it('returns the specified result', () => {
-        var nino = "AA123456D";
+        var nino = 'AA123456D';
         var expectedYears = 11;
         var hmrcApiTestDouble = new HmrcApiTestDouble();
 
@@ -25,7 +25,7 @@ describe('HMRC Test Double', () => {
         
         var hmrcApiTestDouble = new HmrcApiTestDouble();
 
-        hmrcApiTestDouble.getNic("AA012345D", (error, result) => {
+        hmrcApiTestDouble.getNic('AA012345D', (error, result) => {
             should.exist(result);
             should.exist(result.years);
             should(result.years).equal(1);

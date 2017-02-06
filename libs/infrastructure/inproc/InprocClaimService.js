@@ -1,16 +1,12 @@
 'use strict';
 
 var moment = require('moment');
+var CodeContracts = require('../../utils/CodeContracts');
 
 function InprocClaimService(awardCalculator, hmrcApi){
 
-    if (awardCalculator === null || awardCalculator === undefined){
-        throw new Error('required awardCalculator not supplied');
-    }
-
-    if (hmrcApi === null || hmrcApi === undefined){
-        throw new Error('required hmrcApi not supplied');
-    }
+    CodeContracts.exists(awardCalculator, 'required awardCalculator not supplied');
+    CodeContracts.exists(hmrcApi,'required hmrcApi not supplied');
 
     var claims = {};
     var payments = {};

@@ -1,10 +1,10 @@
 'use strict';
 
 var should = require('should');
-var AwardCalculator = require('../libs/domain-services/AwardCalculator');
-var InprocClaimService = require('../libs/infrastructure/inproc/InprocClaimService');
-var TestClaimBuilder = require('./libs/TestClaimBuilder');
-var HmrcApiTestDouble = require('./libs/HmrcApiTestDouble');
+var AwardCalculator = require('../../libs/domain-services/AwardCalculator');
+var InprocClaimService = require('../../libs/infrastructure/inproc/InprocClaimService');
+var TestClaimBuilder = require('../libs/TestClaimBuilder');
+var HmrcApiTestDouble = require('../libs/HmrcApiTestDouble');
 
 describe('InprocClaimService', () => {
 
@@ -64,13 +64,13 @@ describe('InprocClaimService', () => {
 
 
         var claim = new TestClaimBuilder().withAge(age).build();
-        claim.id = '1234'
+        claim.id = '1234';
 
         hmrcApiTestDouble.forNino(claim.nino).returnResult({
             years: years
         });
 
-        service.put(claim, (err, persisted) => {
+        service.put(claim, () => {
             service.getPayments(claim.id, (err, payments) => {
                 should(payments.length).equal(1);
                 should(payments[0].amount).equal(expectedPaymentAmount); 

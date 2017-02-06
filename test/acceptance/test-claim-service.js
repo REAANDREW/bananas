@@ -3,13 +3,13 @@
 var should = require('should');
 var rest = require('restler');
 
-var AwardCalculator = require('../libs/domain-services/AwardCalculator');
-var ClaimServiceApi = require('../libs/apis/ClaimServiceApi');
-var ClaimServiceApiConfig = require('../libs/apis/ClaimServiceApiConfig');
-var InprocClaimService = require('../libs/infrastructure/inproc/InprocClaimService');
-var TestClaimBuilder = require('./libs/TestClaimBuilder');
-var HmrcApiTestDouble = require('./libs/HmrcApiTestDouble');
-var TestData = require('./libs/TestData');
+var AwardCalculator = require('../../libs/domain-services/AwardCalculator');
+var ClaimServiceApi = require('../../libs/apis/ClaimServiceApi');
+var ClaimServiceApiConfig = require('../../libs/apis/ClaimServiceApiConfig');
+var InprocClaimService = require('../../libs/infrastructure/inproc/InprocClaimService');
+var TestClaimBuilder = require('../libs/TestClaimBuilder');
+var HmrcApiTestDouble = require('../libs/HmrcApiTestDouble');
+var TestData = require('../libs/TestData');
 
 describe ('Claim Service', () => {
 
