@@ -8,4 +8,5 @@ install:
     - npm install -d
     - npm install -g mocha
 script:
-    - istanbul cover node_modules/.bin/_mocha && ./node_modules/.bin/istanbul-coveralls
+    - npm test
+    - ./node_modules/.bin/istanbul-coveralls
