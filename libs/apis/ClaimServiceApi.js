@@ -13,7 +13,15 @@ function ClaimServiceApi(claimService){
         var claimObj = req.body;
         claimObj.id = '1';
         claimObj.status = {
-            submitted : true
+            submitted : true,
+            registered : true,
+            verified : true,
+            eligibilityEvaluated : true,
+            awardCalculated : true,
+            paymentCalculated : true,
+            paymentMade : true,
+            statementGenerated : true,
+            notificationSent : true
         }
 
         claimService.put(claimObj, function(err, ok){
