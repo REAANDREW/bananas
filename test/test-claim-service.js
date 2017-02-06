@@ -6,6 +6,7 @@ var rest = require('restler');
 var ClaimServiceApi = require('../libs/apis/ClaimServiceApi');
 var ClaimServiceApiConfig = require('../libs/apis/ClaimServiceApiConfig');
 var InprocClaimService = require('../libs/infrastructure/inproc/InprocClaimService');
+var TestClaimBuilder = require('./libs/TestClaimBuilder');
 
 describe ('Claim Service', () => {
 
@@ -26,36 +27,90 @@ describe ('Claim Service', () => {
         claimServiceApi.stop(done);
     });
 
+    describe('Submit a new claim makes the correct payment', () => {
+
+        describe('for Age 51 and NIC years 11' , () => {
+
+            var claimPaymentsUrl;
+
+            before( (done) => {
+
+                var claim = new TestClaimBuilder().withAge(51).withNic(11).build();    
+                
+                var path = claimServiceApiConfig.url('/claims');
+
+                rest.postJson(path, claim)
+                        .on('complete',function(data) {
+                            claimPaymentsUrl = data.actions.payments.url;
+                            should(claimPaymentsUrl).containEql('payments')
+                            done();
+                        });
+            });
+
+
+            it('pays £50', (done) => {
+                rest.get(claimPaymentsUrl).on('complete', function(data,response) {
+                    should(response.statusCode).equal(200); 
+                    should(data.length).equal(1);
+                    should.exist(data[0].amount);
+                    should(data[0].amount).equal(50);
+                    done();
+                });
+            });
+
+        });
+
+        describe('for age 51 and nic years 21' , () => {
+
+            it.skip('pays £100', () => {
+
+            });
+
+        });
+
+        describe('for age 61 and nic years 11' , () => {
+
+            it.skip('pays £75', () => {
+
+            });
+
+        });
+
+        describe('for age 61 and nic years 21' , () => {
+
+            it.skip('pays £150', () => {
+
+            });
+
+        });
+
+        describe('for age 71 and nic years 11' , () => {
+
+            it.skip('pays £150', () => {
+
+            });
+
+        });
+
+        describe('for age 71 and nic years 21' , () => {
+
+            it.skip('pays £300', () => {
+
+            });
+
+        });
+    });
+
     describe ('Submit a new claim and completes all necessary processing steps', () =>{
 
         var claimResponseObj;
 
         before( (done) => {
-            var payload = {
-                firstName : 'John',
-                middleName : 'Joe',
-                lastName : 'Doe',
-                dob : '01/01/1964',
-                gender : 'male',
-                title : 'Dr',
-                nino : 'AB123456A',
-                bankAccount : {
-                    sortCode : '233512',
-                    accountNumber : '12345678',
-                    name : 'barclays'
-                },
-                address : {
-                    line1 : 'Somehouse',
-                    line2 : 'Someplace',
-                    townCity : 'Somewhere',
-                    postcode : 'XX1 1XX'
-                },
-                passportNumber : '123456789'
-            };
+            var claim = new TestClaimBuilder().build();    
 
             var path = claimServiceApiConfig.url('/claims');
 
-            rest.postJson(path, payload)
+            rest.postJson(path, claim)
                     .on('complete',function(data,response) {
                 should.exist(response);
                 should(response.statusCode).equal(201); 

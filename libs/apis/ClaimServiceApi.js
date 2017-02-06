@@ -8,7 +8,6 @@ function ClaimServiceApi(config, claimService){
     var bodyParser = require('body-parser');
     app.use(bodyParser.json());
 
-    //Add a handler for /claims POST
     app.post('/claims', function(req,res) {
         var claimObj = req.body;
         claimObj.id = '1';
@@ -28,10 +27,19 @@ function ClaimServiceApi(config, claimService){
             res.status(201).json({
                 actions : {
                     info : {
-                        url : 'http://localhost:8000/claims/1'
-                    }
+                        url : config.url(`/claims/${claimObj.id}`)
+                    },
+                    payments : {
+                        url : config.url(`/claims/${claimObj.id}/payments`)
+                    },
                 }
             });
+        });
+    });
+
+    app.get('/claims/:id/payments', function(req,res) {
+        claimService.getPayments (req.params.id,function(err,payments) {
+            res.status(200).json(payments);
         });
     });
 
