@@ -3,6 +3,7 @@ var should = require('should');
 var rest = require('restler');
 
 var ClaimServiceApi = require('../libs/apis/ClaimServiceApi');
+var ClaimServiceApiConfig = require('../libs/apis/ClaimServiceApiConfig');
 var InprocClaimService = require('../libs/infrastructure/inproc/InprocClaimService');
 
 describe ('Claim Service', () => {
@@ -10,11 +11,13 @@ describe ('Claim Service', () => {
     var claimServiceApi;
 
     before((done) => {
+        var claimServiceApiConfig = new ClaimServiceApiConfig();
+
         var claimService = new InprocClaimService();
         
-        claimServiceApi = new ClaimServiceApi(claimService);
+        claimServiceApi = new ClaimServiceApi(claimServiceApiConfig, claimService);
 
-        claimServiceApi.start(8000, done);
+        claimServiceApi.start(done);
     });
 
     after((done) => {

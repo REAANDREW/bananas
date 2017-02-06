@@ -1,6 +1,6 @@
 var http = require('http');
 
-function ClaimServiceApi(claimService){
+function ClaimServiceApi(config, claimService){
     var express = require('express');
     var app = express();
     var bodyParser = require('body-parser');
@@ -44,8 +44,8 @@ function ClaimServiceApi(claimService){
     app.server = http.createServer(app);
 
     var self = {};
-    self.start = (port, callback) => {
-        app.server.listen(port, callback);
+    self.start = (callback) => {
+        app.server.listen(config.port, callback);
     }
     self.stop = (callback) => {
         app.server.close(callback);
