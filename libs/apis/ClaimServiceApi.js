@@ -8,8 +8,6 @@ function ClaimServiceApi(config, claimService){
 
     //Add a handler for /claims POST
     app.post('/claims', function(req,res) {
-        console.log('request received...');
-
         var claimObj = req.body;
         claimObj.id = '1';
         claimObj.status = {

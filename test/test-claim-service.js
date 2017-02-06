@@ -1,4 +1,3 @@
-
 var should = require('should');
 var rest = require('restler');
 
@@ -9,11 +8,12 @@ var InprocClaimService = require('../libs/infrastructure/inproc/InprocClaimServi
 describe ('Claim Service', () => {
 
     var claimServiceApi;
+    var claimServiceApiConfig;
 
     before((done) => {
-        var claimServiceApiConfig = new ClaimServiceApiConfig();
 
         var claimService = new InprocClaimService();
+        claimServiceApiConfig = new ClaimServiceApiConfig();
         
         claimServiceApi = new ClaimServiceApi(claimServiceApiConfig, claimService);
 
@@ -51,7 +51,9 @@ describe ('Claim Service', () => {
                 passportNumber : '123456789'
             };
 
-            rest.postJson('http://localhost:8000/claims', payload)
+            var path = claimServiceApiConfig.url('/claims');
+
+            rest.postJson(path, payload)
                     .on('complete',function(data,response) {
                 should.exist(response);
                 should(response.statusCode).equal(201); 
