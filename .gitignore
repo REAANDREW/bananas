@@ -57,3 +57,4 @@ typings/
 
 *.swp
 coverage/
+*.zip
