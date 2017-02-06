@@ -2,54 +2,11 @@
 var should = require('should');
 var rest = require('restler');
 
-function InprocClaimService(){
-    var claims = {};
-    var self = {};
+var InprocClaimService = require('../libs/infrastructure/inproc/InprocClaimService');
 
-    self.put = (claim, callback) => {   
-        claims[claim.id] = claim;
-        callback(undefined, true);
-    };
 
-    self.get = (id, callback) => {
-        callback(undefined, claims[id]);
-    };
-
-    return self;
-}
-
-describe("InprocClaimService", () => {
-
-    var service;
-
-    beforeEach(() => {
-        service = new InprocClaimService();
-    });
-
-    it("Puts a new claim", (done) => {
-        service.put({}, (err, persisted) => {
-            should(persisted).equal(true);
-            done();
-        });
-    });
-
-    it("Gets a claim", (done) => {
-        var expectedId = '1';
-
-        service.put({id:expectedId}, (err, persisted) => {
-            should(persisted).equal(true);
-
-            service.get(expectedId, (err, claim) => {
-                should.not.exist(err);
-                should(claim.id).equal(expectedId);
-                done();
-            })
-        });
-    });
-});
-
-describe ('something', () => {
-    it ('does something', (done) =>{
+describe ('Claim Service', () => {
+    it ('Submit a new claim and completes all necessary processing steps', (done) =>{
         should(1).equal(1);
         //Create a server
 
