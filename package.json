@@ -9,6 +9,8 @@
   "author": "Andrew Penrose Andrew Rea",
   "license": "ISC",
   "devDependencies": {
+    "istanbul": "^0.4.5",
+    "istanbul-coveralls": "^1.0.3",
     "mocha": "^3.2.0",
     "restler": "^3.4.0",
     "should": "^11.2.0"
