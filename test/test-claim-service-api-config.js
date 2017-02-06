@@ -1,3 +1,5 @@
+'use strict';
+
 var should = require('should');
 var ClaimServiceApiConfig = require('../libs/apis/ClaimServiceApiConfig');
 

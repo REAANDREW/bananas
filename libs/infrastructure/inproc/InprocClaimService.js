@@ -1,3 +1,5 @@
+'use strict';
+
 function InprocClaimService(){
     var claims = {};
     var self = {};

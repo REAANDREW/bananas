@@ -1,10 +1,12 @@
+'use strict';
+
 var http = require('http');
 
 function ClaimServiceApi(config, claimService){
     var express = require('express');
     var app = express();
     var bodyParser = require('body-parser');
-    app.use(bodyParser.json())
+    app.use(bodyParser.json());
 
     //Add a handler for /claims POST
     app.post('/claims', function(req,res) {
@@ -20,9 +22,9 @@ function ClaimServiceApi(config, claimService){
             paymentMade : true,
             statementGenerated : true,
             notificationSent : true
-        }
+        };
 
-        claimService.put(claimObj, function(err, ok){
+        claimService.put(claimObj, function(){
             res.status(201).json({
                 actions : {
                     info : {
@@ -44,10 +46,10 @@ function ClaimServiceApi(config, claimService){
     var self = {};
     self.start = (callback) => {
         app.server.listen(config.port, callback);
-    }
+    };
     self.stop = (callback) => {
         app.server.close(callback);
-    }
+    };
 
     return self;
 }

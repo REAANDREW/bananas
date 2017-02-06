@@ -4,7 +4,7 @@
   "description": "Fake Expat Assistance Benefit",
   "main": "index.js",
   "scripts": {
-    "test": "istanbul cover node_modules/.bin/_mocha"
+    "test": "make test"
   },
   "author": "Andrew Penrose Andrew Rea",
   "license": "ISC",

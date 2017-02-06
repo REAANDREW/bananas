@@ -1,8 +1,9 @@
+'use strict';
 
 var should = require('should');
 var InprocClaimService = require('../libs/infrastructure/inproc/InprocClaimService');
 
-describe("InprocClaimService", () => {
+describe('InprocClaimService', () => {
 
     var service;
 
@@ -10,14 +11,14 @@ describe("InprocClaimService", () => {
         service = new InprocClaimService();
     });
 
-    it("Puts a new claim", (done) => {
+    it('Puts a new claim', (done) => {
         service.put({}, (err, persisted) => {
             should(persisted).equal(true);
             done();
         });
     });
 
-    it("Gets a claim", (done) => {
+    it('Gets a claim', (done) => {
         var expectedId = '1';
 
         service.put({id:expectedId}, (err, persisted) => {
@@ -27,7 +28,7 @@ describe("InprocClaimService", () => {
                 should.not.exist(err);
                 should(claim.id).equal(expectedId);
                 done();
-            })
+            });
         });
     });
 });

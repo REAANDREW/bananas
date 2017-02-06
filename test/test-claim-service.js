@@ -1,3 +1,5 @@
+'use strict';
+
 var should = require('should');
 var rest = require('restler');
 
@@ -70,7 +72,7 @@ describe ('Claim Service', () => {
 
         it('has status object', () => {
             should.exist(claimResponseObj.status);
-        })
+        });
 
         it('has submitted status', () => {
             should.exist(claimResponseObj.status.submitted);
