@@ -42,7 +42,7 @@ describe ('Claim Service', () => {
                 rest.postJson(path, claim)
                         .on('complete',function(data) {
                             claimPaymentsUrl = data.actions.payments.url;
-                            should(claimPaymentsUrl).containEql('payments')
+                            should(claimPaymentsUrl).containEql('payments');
                             done();
                         });
             });

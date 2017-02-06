@@ -1,7 +1,7 @@
 'use strict';
 
 var moment = require('moment');
-var NiWithNic = require('./NiWithNic');
+var niWithNic = require('./NiWithNic');
 var TestData = require('./TestData');
 
 function Person(me){
@@ -9,8 +9,8 @@ function Person(me){
 }
 
 Person.prototype.sayHi = function(name){
-    return this.me + " says hi to " + name;
-}
+    return this.me + ' says hi to ' + name;
+};
 
 function TestClaimBuilder(){
     var self = {};
@@ -18,12 +18,12 @@ function TestClaimBuilder(){
     var claim = TestData.defaultClaim;
 
     self.withAge = (age) => {
-        claim.dob =  moment().subtract(age, 'years').format('DD/MM/YYYY')
+        claim.dob =  moment().subtract(age, 'years').format('DD/MM/YYYY');
         return self;
     };
 
     self.withNic = (years) => {
-        claim.nino = NiWithNic(years);
+        claim.nino = niWithNic(years);
         return self;
     };
 

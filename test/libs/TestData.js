@@ -1,4 +1,4 @@
-var NiWithNic = require('./NiWithNic');
+var niWithNic = require('./NiWithNic');
 
 module.exports = {
     defaultClaim : {
@@ -8,7 +8,7 @@ module.exports = {
         dob : '01/01/1964',
         gender : 'male',
         title : 'Dr',
-        nino : NiWithNic(11),
+        nino : niWithNic(11),
         bankAccount : {
             sortCode : '233512',
             accountNumber : '12345678',
@@ -22,4 +22,4 @@ module.exports = {
         },
         passportNumber : '123456789'
     }
-}
+};

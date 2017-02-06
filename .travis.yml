@@ -9,5 +9,5 @@ install:
     - npm install -g jshint
     - npm install -g mocha
 script:
-    - make test
+    - make build
     - ./node_modules/.bin/istanbul-coveralls

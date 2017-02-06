@@ -7,8 +7,8 @@ function pad(n, width, z) {
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
 
-function NiWithNic(years){
+function niWithNic(years){
     return 'AA' + pad(years, 6) + 'D';
 }
 
-module.exports = NiWithNic;
+module.exports = niWithNic;
