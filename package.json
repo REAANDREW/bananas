@@ -4,7 +4,7 @@
   "description": "Fake Expat Assistance Benefit",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha"
+    "test": "exit 1"
   },
   "author": "Andrew Penrose Andrew Rea",
   "license": "ISC",
