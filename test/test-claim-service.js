@@ -2,8 +2,8 @@
 var should = require('should');
 var rest = require('restler');
 
+var ClaimServiceApi = require('../libs/apis/ClaimServiceApi');
 var InprocClaimService = require('../libs/infrastructure/inproc/InprocClaimService');
-
 
 describe ('Claim Service', () => {
     it ('Submit a new claim and completes all necessary processing steps', (done) =>{
@@ -11,39 +11,10 @@ describe ('Claim Service', () => {
         //Create a server
 
         var claimService = new InprocClaimService();
-        var express = require('express');
-        var app = express();
-        var bodyParser = require('body-parser');
-        app.use(bodyParser.json())
+        
+        var claimServiceApi = new ClaimServiceApi(claimService);
 
-        //Add a handler for /claims POST
-        app.post('/claims', function(req,res) {
-            console.log('request received...');
-    
-            var claimObj = req.body;
-            claimObj.id = '1';
-            claimObj.status = {
-                submitted : true
-            }
-
-            claimService.put(claimObj, function(err, ok){
-                res.status(201).json({
-                    actions : {
-                        info : {
-                            url : 'http://localhost:8000/claims/1'
-                        }
-                    }
-                });
-            });
-        });
-
-        app.get('/claims/:id', function(req,res) {
-            claimService.get (req.params.id,function(err,claim) {
-                res.status(200).json(claim);
-            });
-        });
-
-        app.listen(8000, function(){
+        claimServiceApi.start(8000, function(){
             //Create a JSON Payload with 
             // - firstname, middlename, lastname, dob, gender, title, nino, bank account, passport number
             //
