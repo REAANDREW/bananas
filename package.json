@@ -10,9 +10,11 @@
   "license": "ISC",
   "devDependencies": {
     "mocha": "^3.2.0",
+    "restler": "^3.4.0",
     "should": "^11.2.0"
   },
   "dependencies": {
+    "body-parser": "^1.16.0",
     "express": "^4.14.1"
   }
 }
