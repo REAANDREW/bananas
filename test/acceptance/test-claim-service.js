@@ -1,6 +1,7 @@
 'use strict';
 
 var should = require('should');
+var deride = require('deride');
 var rest = require('restler');
 
 var AwardCalculator = require('../../libs/domain-services/AwardCalculator');
@@ -8,7 +9,6 @@ var ClaimServiceApi = require('../../libs/apis/ClaimServiceApi');
 var ClaimServiceApiConfig = require('../../libs/apis/ClaimServiceApiConfig');
 var InprocClaimService = require('../../libs/infrastructure/inproc/InprocClaimService');
 var TestClaimBuilder = require('../libs/TestClaimBuilder');
-var HmrcApiTestDouble = require('../libs/HmrcApiTestDouble');
 var TestData = require('../libs/TestData');
 
 describe ('Claim Service', () => {
@@ -19,7 +19,8 @@ describe ('Claim Service', () => {
     var hmrcApiTestDouble;
 
     before((done) => {
-        hmrcApiTestDouble = new HmrcApiTestDouble();
+        hmrcApiTestDouble = deride.stub(['getNic']); 
+        hmrcApiTestDouble.setup.getNic.toCallbackWith(undefined, {years:21});
 
         awardCalculator = new AwardCalculator(); 
 
@@ -44,9 +45,14 @@ describe ('Claim Service', () => {
                 before( (done) => {
                     var claim = new TestClaimBuilder().withAge(testCase.age).build();    
 
+                    /*
                     hmrcApiTestDouble.forNino(claim.nino).returnResult({
                         years: testCase.nic
                     });
+                    */
+                    hmrcApiTestDouble.
+                        setup.getNic.when(claim.nino)
+                        .toCallbackWith(undefined, {years:testCase.nic});
                     
                     var path = claimServiceApiConfig.url('/claims');
 

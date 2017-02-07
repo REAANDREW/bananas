@@ -9,6 +9,7 @@
   "author": "Andrew Penrose Andrew Rea",
   "license": "ISC",
   "devDependencies": {
+    "deride": "^1.1.0",
     "istanbul": "^0.4.5",
     "istanbul-coveralls": "^1.0.3",
     "jshint": "^2.9.4",
