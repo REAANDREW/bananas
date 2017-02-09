@@ -1,4 +1,7 @@
-.PHONY: lint test build deploy destroy
+.PHONY: lint test build deploy destroy build_ami
+
+AMI=$(shell grep 'artifact,0,id' /dev/null deploy/ami-build.log | cut -d, -f6 | cut -d: -f2)
+REGION=$(shell grep 'artifact,0,id' /dev/null deploy/ami-build.log | cut -d, -f6 | cut -d: -f1)
 
 lint:
 	jshint .
@@ -8,10 +11,17 @@ test:
 
 build: lint test
 
-deploy:
+build_ami:
 	(cd deploy && \
-	terraform apply -var 'key_name=terraform' -var 'public_key_path=/home/vagrant/.ssh/id_rsa.pub')
+		packer build -machine-readable packer.json | tee ami-build.log)
+	
+deploy: build_ami
+	echo "ami = $(AMI)"
+	echo "region = $(REGION)"
+
+	(cd deploy && \
+	terraform apply -var 'key_name=terraform' -var 'public_key_path=/home/vagrant/.ssh/id_rsa.pub' -var 'aws_region=$(REGION)' -var 'aws_ami=$(AMI)')
 
 destroy:
 	(cd deploy && \
-	terraform destroy -var 'key_name=terraform' -var 'public_key_path=/home/vagrant/.ssh/id_rsa.pub')
+	terraform destroy -var 'key_name=terraform' -var 'public_key_path=/home/vagrant/.ssh/id_rsa.pub' -var 'aws_region=$(REGION)' -var 'aws_ami=$(AMI)')

@@ -17,6 +17,10 @@ variable "aws_region" {
   default     = "us-west-2"
 }
 
+variable "aws_ami" {
+    description = "The AWS AMI to use"
+}
+
 # Ubuntu Precise 12.04 LTS (x64)
 variable "aws_amis" {
   default = {

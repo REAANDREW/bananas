@@ -112,11 +112,12 @@ resource "aws_instance" "web" {
     # The connection will use the local SSH agent for authentication.
   }
 
-  instance_type = "m1.small"
+  instance_type = "t2.micro"
 
   # Lookup the correct AMI based on the region
   # we specified
-  ami = "${lookup(var.aws_amis, var.aws_region)}"
+  # ami = "${lookup(var.aws_amis, var.aws_region)}"
+  ami = "${var.aws_ami}"
 
   # The name of our SSH keypair we created above.
   key_name = "${aws_key_pair.auth.id}"
@@ -135,12 +136,8 @@ resource "aws_instance" "web" {
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get -y update",
-      "curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -",
-      "sudo apt-get install -y nodejs",
-      "sudo apt-get install -y npm",
-      "sudo apt-get install -y nodejs-legacy",
       "sudo apt-get -y install nginx",
-      "sudo service nginx start"
+      "sudo service nginx start",
     ]
   }
 }
