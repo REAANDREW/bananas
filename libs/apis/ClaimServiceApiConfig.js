@@ -13,12 +13,12 @@ function ClaimServiceApiConfig(){
     self.withPort = (port) => {
         self.port = port;
         return self;
-    }
+    };
 
     self.withHostname = (hostname) => {
         self.hostname = hostname;
         return self;
-    }
+    };
 
     return self;
 }
