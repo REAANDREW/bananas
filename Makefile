@@ -10,7 +10,10 @@ test:
 	# Stand up the not real HMRC service
 	istanbul cover node_modules/.bin/_mocha test/*
 
-build: lint test
+mutation_test:
+	npm run stryker
+
+build: lint test mutation_test
 
 build_ami:
 	(cd deploy && \

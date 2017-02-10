@@ -4,7 +4,8 @@
   "description": "Fake Expat Assistance Benefit",
   "main": "index.js",
   "scripts": {
-    "test": "make test"
+    "test": "make test",
+    "stryker": "stryker run stryker.conf.js"
   },
   "author": "Andrew Penrose Andrew Rea",
   "license": "ISC",
@@ -15,7 +16,10 @@
     "jshint": "^2.9.4",
     "mocha": "^3.2.0",
     "restler": "^3.4.0",
-    "should": "^11.2.0"
+    "should": "^11.2.0",
+    "stryker": "^0.5.8",
+    "stryker-api": "^0.4.2",
+    "stryker-mocha-runner": "^0.2.0"
   },
   "dependencies": {
     "body-parser": "^1.16.0",
