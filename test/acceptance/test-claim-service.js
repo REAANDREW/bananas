@@ -3,13 +3,11 @@
 var should = require('should');
 var rest = require('restler');
 
-var AwardCalculator = require('../../libs/domain-services/AwardCalculator');
-var ClaimServiceApi = require('../../libs/apis/ClaimServiceApi');
 var ClaimServiceApiConfig = require('../../libs/apis/ClaimServiceApiConfig');
-var InprocClaimService = require('../../libs/infrastructure/inproc/InprocClaimService');
 var TestClaimBuilder = require('../libs/TestClaimBuilder');
 var HmrcApiProxy = require('../../libs/infrastructure/http/HmrcApiProxy');
 var HmrcApiStubService = require('../libs/HmrcApiStubService');
+var ClaimServiceApiFactory = require('../../libs/apis/ClaimServiceApiFactory');
 
 var testCases =  [
         {age: 50, nino: 'AA000011D', expected: 0},
@@ -25,7 +23,6 @@ describe('Claim Service', () => {
 
     var claimServiceApi;
     var claimServiceApiConfig;
-    var awardCalculator;
     var hmrcApiProxy;
     var hmrcApiStubConfig = {
         port : 40001,
@@ -40,15 +37,13 @@ describe('Claim Service', () => {
         var hmrcApiConfig = {
             nicEndpoint : `http://localhost:${hmrcApiStubConfig.port}/nic`,
         };
+
         hmrcApiProxy = new HmrcApiProxy(hmrcApiConfig);
 
-        awardCalculator = new AwardCalculator(); 
-
-        var claimService = new InprocClaimService(awardCalculator, hmrcApiProxy);
-
         claimServiceApiConfig = new ClaimServiceApiConfig();
-        
-        claimServiceApi = new ClaimServiceApi(claimServiceApiConfig, claimService);
+
+        var claimServiceApiFactory = new ClaimServiceApiFactory(claimServiceApiConfig,hmrcApiProxy);
+        claimServiceApi = claimServiceApiFactory.create();
 
         stub = new HmrcApiStubService(hmrcApiStubConfig);
         stub.start(() => {
