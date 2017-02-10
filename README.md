@@ -15,6 +15,12 @@ In order to deploy to AWS using Terraform or Packer environment variables must b
  export AWS_ACCESS_KEY_ID="$(cat ~/.ssh/aws-access-key)"
 ```
 
+You can source the `credentials.sh` which will set these variables.
+
+```shell
+source credentials.sh
+```
+
 ## SSH-Agent
 
 Ensure the ssh agent is running and that the identity you wish Terraform to use is added.

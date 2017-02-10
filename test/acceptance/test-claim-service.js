@@ -1,7 +1,6 @@
 'use strict';
 
 var should = require('should');
-var deride = require('deride');
 var rest = require('restler');
 
 var AwardCalculator = require('../../libs/domain-services/AwardCalculator');
@@ -9,50 +8,68 @@ var ClaimServiceApi = require('../../libs/apis/ClaimServiceApi');
 var ClaimServiceApiConfig = require('../../libs/apis/ClaimServiceApiConfig');
 var InprocClaimService = require('../../libs/infrastructure/inproc/InprocClaimService');
 var TestClaimBuilder = require('../libs/TestClaimBuilder');
-var TestData = require('../libs/TestData');
+var HmrcApiProxy = require('../../libs/infrastructure/http/HmrcApiProxy');
+var HmrcApiStubService = require('../libs/HmrcApiStubService');
 
-describe ('Claim Service', () => {
+var testCases =  [
+        {age: 50, nino: 'AA000011D', expected: 0},
+        {age: 51, nino: 'AA000011D', expected: 50},
+        {age: 51, nino: 'AA000021D', expected: 100},
+        {age: 61, nino: 'AA000011D', expected: 75},
+        {age: 61, nino: 'AA000021D', expected: 150},
+        {age: 71, nino: 'AA000011D', expected: 150},
+        {age: 71, nino: 'AA000021D', expected: 300},
+];
+
+describe('Claim Service', () => {
 
     var claimServiceApi;
     var claimServiceApiConfig;
     var awardCalculator;
-    var hmrcApiTestDouble;
+    var hmrcApiProxy;
+    var hmrcApiStubConfig = {
+        port : 40001,
+        data: {
+            'AA000011D':{ expectedYears: 11},
+            'AA000021D':{ expectedYears: 21},
+        }
+    };
+    var stub;
 
     before((done) => {
-        hmrcApiTestDouble = deride.stub(['getNic']); 
-        hmrcApiTestDouble.setup.getNic.toCallbackWith(undefined, {years:21});
+        var hmrcApiConfig = {
+            nicEndpoint : `http://localhost:${hmrcApiStubConfig.port}/nic`,
+        };
+        hmrcApiProxy = new HmrcApiProxy(hmrcApiConfig);
 
         awardCalculator = new AwardCalculator(); 
 
-        var claimService = new InprocClaimService(awardCalculator, hmrcApiTestDouble);
+        var claimService = new InprocClaimService(awardCalculator, hmrcApiProxy);
 
         claimServiceApiConfig = new ClaimServiceApiConfig();
         
         claimServiceApi = new ClaimServiceApi(claimServiceApiConfig, claimService);
 
-        claimServiceApi.start(done);
+        stub = new HmrcApiStubService(hmrcApiStubConfig);
+        stub.start(() => {
+            claimServiceApi.start(done);
+        });
     });
 
     after((done) => {
-        claimServiceApi.stop(done);
+        stub.stop(() => {
+            claimServiceApi.stop(done);
+        });
     });
 
     describe('Submit a new claim makes the correct payment', () => {
-        TestData.paymentTestCases.forEach((testCase) => {
+        testCases.forEach((testCase) => {
             describe(`for an age of ${testCase.age} and nic of ${testCase.nic}`, () => {
                 var claimPaymentsUrl;
 
                 before( (done) => {
                     var claim = new TestClaimBuilder().withAge(testCase.age).build();    
-
-                    /*
-                    hmrcApiTestDouble.forNino(claim.nino).returnResult({
-                        years: testCase.nic
-                    });
-                    */
-                    hmrcApiTestDouble.
-                        setup.getNic.when(claim.nino)
-                        .toCallbackWith(undefined, {years:testCase.nic});
+                    claim.nino = testCase.nino;
                     
                     var path = claimServiceApiConfig.url('/claims');
 

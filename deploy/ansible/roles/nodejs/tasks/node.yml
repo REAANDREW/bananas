@@ -1,0 +1,13 @@
+# vim:ft=ansible:
+---
+- name: Install Node.js
+  become: yes
+  become_method: sudo
+  apt: 
+    name: "{{ item }}"
+    state: installed 
+    update_cache: yes
+  with_items:
+  - nodejs
+  - nodejs-legacy
+  - npm

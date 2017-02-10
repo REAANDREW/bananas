@@ -1,0 +1,6 @@
+---
+- hosts: all
+  vars:
+    languages:
+  roles:
+  - nodejs
