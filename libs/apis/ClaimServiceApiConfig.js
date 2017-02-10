@@ -9,6 +9,17 @@ function ClaimServiceApiConfig(){
     self.url = function(path) {
        return self.scheme + '://' + self.hostname + ':' + self.port + path;
     };
+
+    self.withPort = (port) => {
+        self.port = port;
+        return self;
+    }
+
+    self.withHostname = (hostname) => {
+        self.hostname = hostname;
+        return self;
+    }
+
     return self;
 }
 
