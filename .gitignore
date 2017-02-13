@@ -58,3 +58,4 @@ typings/
 *.swp
 coverage/
 *.zip
+*.tfstate.backup
