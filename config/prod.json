@@ -1,6 +1,6 @@
 {
-    "port" : 8080,
-    "hostname" : "localhost",
+    "port" : 80,
+    "hostname" : "0.0.0.0",
     "hmrcApiConfig" : {
         "nicEndpoint" : "http://localhost:45678/nic"
     }

@@ -1,4 +1,0 @@
-
-      "role_paths": [
-        "ansible/roles"
-      ]

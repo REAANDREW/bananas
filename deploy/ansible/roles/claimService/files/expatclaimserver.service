@@ -3,7 +3,7 @@ Description=The Expat Assistance Benefit Service
 #Requires=After=mysql.service       # Requires the mysql service to run first
 
 [Service]
-ExecStart=/usr/local/bin/node /opt/expatclaimservice/app.js
+ExecStart=/usr/bin/node /opt/expatclaimservice/app.js -c /opt/expatclaimservice/config/prod.json
 #WorkingDirectory=/opt/nodeserver   # Required on some systems
 Restart=always
 RestartSec=10                       # Restart service after 10 seconds if node service crashes
