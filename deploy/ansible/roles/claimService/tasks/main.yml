@@ -4,18 +4,14 @@
   - name: Clone the service
     git:
         repo: https://github.com/dwp-technology-design/bananas
-        dest: /opt/bananas
+        dest: /opt/expatclaimservice
   - name: Install dependencies
     command: make package
     args:
-     chdir: /opt/bananas
-  - name: Install forever
-    command: npm install -g forever
-    args:
-     chdir: /opt/bananas
-  - name: Start Service
-    command: forever start app.js
-    args:
-     chdir: /opt/bananas
+     chdir: /opt/expatclaimservice
+  - name: Copy the systemd manifest
+    copy: src=expatclaimserver.service dest=/etc/systemd/system/expatclaimserver.service 
+  - name: Enable the Service
+    command: systemctl enable expatclaimserver.service
   become: yes
   become_method: sudo
