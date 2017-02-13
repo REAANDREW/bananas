@@ -11,4 +11,15 @@ describe('Claim Service API Configuration', () => {
         should(config.url('/fubar')).equal('http://localhost:8080/fubar');
     });
 
+    it('witPort configures the port', () => {
+        var expectedPort = 35000;
+        var config = new ClaimServiceApiConfig().withPort(expectedPort);
+        should(config.port).equal(expectedPort);
+    });
+
+    it('witHostname configures the hostname', () => {
+        var expectedHostname = 35000;
+        var config = new ClaimServiceApiConfig().withHostname(expectedHostname);
+        should(config.hostname).equal(expectedHostname);
+    });
 });
