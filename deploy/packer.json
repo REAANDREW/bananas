@@ -20,7 +20,7 @@
       "source_ami": "ami-a41eaec4",
       "instance_type": "t2.micro",
       "ssh_username": "ubuntu",
-      "ami_name": "bananas {{timestamp}}"
+      "ami_name": "fake-expat-claim-service {{timestamp}}"
     }
   ],
   "post-processors": []

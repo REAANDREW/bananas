@@ -2,7 +2,7 @@
 
 function ClaimServiceApiConfig(){
     var self = {};
-    self.port = 80;
+    self.port = 8080;
     self.scheme = 'http';
     self.hostname = 'localhost';
 
