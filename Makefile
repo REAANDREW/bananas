@@ -3,6 +3,9 @@
 AMI=$(shell grep 'artifact,0,id' /dev/null deploy/ami-build.log | cut -d, -f6 | cut -d: -f2)
 REGION=$(shell grep 'artifact,0,id' /dev/null deploy/ami-build.log | cut -d, -f6 | cut -d: -f1)
 
+install:
+	npm install
+
 lint:
 	jshint .
 
@@ -13,7 +16,9 @@ test:
 mutation_test:
 	npm run stryker
 
-build: lint test mutation_test
+build: install lint test mutation_test
+
+package: install 
 
 build_ami:
 	(cd deploy && \

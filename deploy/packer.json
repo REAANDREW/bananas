@@ -2,7 +2,11 @@
   "provisioners": [
     {
         "type": "shell",
-        "inline": ["sudo apt-get -y install python-minimal"]
+        "inline": [
+            "sudo apt-get update",
+            "sudo apt-get -y install python-minimal",
+            "sudo apt-get autoremove"
+        ]
     },
     {
       "type": "ansible",

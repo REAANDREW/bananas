@@ -1,14 +1,21 @@
 # vim:ft=ansible:
 ---
-- name: Install Node.js
+- block:
+  - name: Clone the service
+    git:
+        repo: https://github.com/dwp-technology-design/bananas
+        dest: /opt/bananas
+  - name: Install dependencies
+    command: make package
+    args:
+     chdir: /opt/bananas
+  - name: Install forever
+    command: npm install -g forever
+    args:
+     chdir: /opt/bananas
+  - name: Start Service
+    command: forever start app.js
+    args:
+     chdir: /opt/bananas
   become: yes
   become_method: sudo
-  apt: 
-    name: "{{ item }}"
-    state: installed 
-    update_cache: yes
-  with_items:
-  - nodejs
-  - nodejs-legacy
-  - npm
-

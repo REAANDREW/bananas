@@ -4,3 +4,4 @@
     languages:
   roles:
   - nodejs
+  - claimService
