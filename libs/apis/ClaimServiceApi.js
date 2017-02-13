@@ -8,6 +8,10 @@ function ClaimServiceApi(config, claimService){
     var bodyParser = require('body-parser');
     app.use(bodyParser.json());
 
+    app.get('/meta/health', function(req,res){
+        res.status(200).end();
+    });
+
     app.post('/claims', function(req,res) {
         var claimObj = req.body;
         claimObj.id = '1';

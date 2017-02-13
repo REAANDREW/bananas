@@ -57,6 +57,18 @@ describe('Claim Service', () => {
         });
     });
 
+    describe('the health check', () => {
+
+        it('returns OK', (done) => {
+            var path = claimServiceApiConfig.url('/meta/health');
+            rest.get(path)
+                    .on('complete',function(data, response) {
+                        should(response.statusCode).equal(200);
+                        done();
+                    });
+        });
+    });
+
     describe('Submit a new claim makes the correct payment', () => {
         testCases.forEach((testCase) => {
             describe(`for an age of ${testCase.age} and nic of ${testCase.nic}`, () => {
