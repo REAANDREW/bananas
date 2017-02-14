@@ -1,5 +1,7 @@
 'use strict';
 
+var logger = require('../logging').logger;
+
 function AwardCalculator(){
     
     var self = {};
@@ -23,7 +25,17 @@ function AwardCalculator(){
             value = 100;
         } 
 
-        return addDiscount(nic, value);
+        var valueAfterDiscount = addDiscount(nic, value);
+
+        logger.log('info', 'Award Calculated', {
+            age: age,
+            nic: nic,
+            value : value,
+            discount: valueAfterDiscount < value,
+            award: valueAfterDiscount 
+        });
+
+        return valueAfterDiscount;
     };
 
     return self;

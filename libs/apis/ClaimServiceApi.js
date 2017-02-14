@@ -1,29 +1,7 @@
 'use strict';
 
 var http = require('http');
-
-var winston = require('winston');
-
-var expressWinston = require('express-winston');
-
-const requestLogger = expressWinston.logger({
-  transports: [
-    new winston.transports.Console({
-        json: true,
-        stringify: true
-    })
-  ],
-  expressFormat: false,
-  meta: true
-});
-
-const errorLogger = expressWinston.errorLogger({
-  transports: [
-    new winston.transports.Console({
-      json: true
-    })
-  ]
-});
+var logging = require('../logging');
 
 function ClaimServiceApi(config, claimService){
     var express = require('express');
@@ -31,7 +9,7 @@ function ClaimServiceApi(config, claimService){
     var bodyParser = require('body-parser');
     app.use(bodyParser.json());
 
-    app.use(requestLogger);
+    app.use(logging.requestLogger);
 
     app.get('/meta/health', function(req,res){
         res.status(200).end();
@@ -78,7 +56,7 @@ function ClaimServiceApi(config, claimService){
         });
     });
 
-    app.use(errorLogger);
+    app.use(logging.errorLogger);
 
     app.server = http.createServer(app);
 
