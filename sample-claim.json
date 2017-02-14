@@ -5,7 +5,7 @@
     "dob" : "01/01/1964",
     "gender" : "male",
     "title" : "Dr",
-    "nino" : "AA000011D",
+    "nino" : "AA000021D",
     "bankAccount" : {
         "sortCode" : "233512",
         "accountNumber" : "12345678",
