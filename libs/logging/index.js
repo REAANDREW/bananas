@@ -24,4 +24,4 @@ module.exports = {
     logger : new winston.Logger({
         transports: [consoleLogger],
     })
-}
+};
