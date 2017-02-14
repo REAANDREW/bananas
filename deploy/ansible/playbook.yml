@@ -4,4 +4,4 @@
     languages:
   roles:
   - nodejs
-  - claimService
+  - fake-expat-claim-service

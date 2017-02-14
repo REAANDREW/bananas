@@ -4,14 +4,14 @@
   - name: Clone the service
     git:
         repo: https://github.com/dwp-technology-design/fake-expat-claim-service.git
-        dest: /opt/expatclaimservice
+        dest: /opt/fake-expat-claim-service
   - name: Install dependencies
     command: make package
     args:
-     chdir: /opt/expatclaimservice
+     chdir: /opt/fake-expat-claim-service
   - name: Copy the systemd manifest
-    copy: src=expatclaimserver.service dest=/etc/systemd/system/expatclaimserver.service 
+    copy: src=fake-expat-claim-service.service dest=/etc/systemd/system/fake-expat-claim-service.service 
   - name: Enable the Service
-    command: systemctl enable expatclaimserver.service
+    command: systemctl enable fake-expat-claim-service.service
   become: yes
   become_method: sudo

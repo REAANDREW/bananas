@@ -29,8 +29,8 @@ resource "aws_subnet" "default" {
 
 # A security group for the ELB so it is accessible via the web
 resource "aws_security_group" "elb" {
-  name        = "terraform_example_elb"
-  description = "Used in the terraform"
+  name        = "fake-expat-claim-service-elb"
+  description = "Used in the fake-expat-claim-service"
   vpc_id      = "${aws_vpc.default.id}"
 
   # HTTP access from anywhere
@@ -53,8 +53,8 @@ resource "aws_security_group" "elb" {
 # Our default security group to access
 # the instances over SSH and HTTP
 resource "aws_security_group" "default" {
-  name        = "terraform_example"
-  description = "Used in the terraform"
+  name        = "fake-expat-claim-service"
+  description = "Used in the fake-expat-claim-service"
   vpc_id      = "${aws_vpc.default.id}"
 
   # SSH access from anywhere
@@ -83,7 +83,7 @@ resource "aws_security_group" "default" {
 }
 
 resource "aws_elb" "web" {
-  name = "terraform-example-elb"
+  name = "fake-expat-claim-service-elb"
 
   subnets         = ["${aws_subnet.default.id}"]
   security_groups = ["${aws_security_group.elb.id}"]
