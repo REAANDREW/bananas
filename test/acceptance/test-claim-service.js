@@ -19,7 +19,7 @@ var testCases =  [
         {age: 71, nino: 'AA000021D', expected: 300},
 ];
 
-describe('Claim Service', () => {
+describe.only('Claim Service', () => {
 
     var claimServiceApi;
     var claimServiceApiConfig;
