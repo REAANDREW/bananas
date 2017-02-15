@@ -28,3 +28,17 @@ Ensure the ssh agent is running and that the identity you wish Terraform to use 
 ## Who is watching
 
 The Domain Team!
+
+## Moving to Kubernetes
+
+### Install Kubernetes
+
+```shell
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+```
+
+### Install Mikikube
+
+```shell
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.16.0/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+```

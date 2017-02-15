@@ -2,6 +2,7 @@
 
 var logger = require('../logging').logger;
 
+
 function AwardCalculator(){
     
     var self = {};
