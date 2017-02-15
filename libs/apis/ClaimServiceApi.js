@@ -1,7 +1,9 @@
 'use strict';
 
+var os = require('os');
 var http = require('http');
 var logging = require('../logging');
+
 
 function ClaimServiceApi(config, claimService){
     var express = require('express');
@@ -12,6 +14,7 @@ function ClaimServiceApi(config, claimService){
     app.use(logging.requestLogger);
 
     app.get('/meta/health', function(req,res){
+        res.setHeader('X-HOSTNAME',os.hostname());
         res.status(200).end();
     });
 

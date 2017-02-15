@@ -49,7 +49,7 @@ WE NEED A LOT OF STUFF!!!
 ```shell
 export DOCKER_TLS_VERIFY="1"
 export DOCKER_HOST="tcp://192.168.99.101:2376"
-export DOCKER_CERT_PATH="/Users/area/.minikube/certs"
+export DOCKER_CERT_PATH="/home/vagrant/.minikube/certs"
 export DOCKER_API_VERSION="1.23"
 ```
 
@@ -106,3 +106,8 @@ We copied the `.minikube/` directory from the host to the other VM.  AND, AND we
 |                                                                  |
 +------------------------------------------------------------------+
 ```
+
+### Kubernetes Resources
+
+[https://kubernetes.io/docs/tutorials/stateless-application/hello-minikube/](https://kubernetes.io/docs/tutorials/stateless-application/hello-minikube/)
+

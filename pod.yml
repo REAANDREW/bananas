@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tech-design-exemplar
+  labels:
+    app: web
+spec:
+  containers:
+    - name: fake-expat-claim-service
+      image: fake-expat-claim-service
+      ports:
+        - containerPort: 8000
