@@ -33,3 +33,17 @@ deploy: build_ami
 destroy:
 	(cd deploy && \
 	terraform destroy -var "key_name=$(KEY_NAME)" -var "public_key_path=$(PUBLIC_KEY_PATH)" -var "aws_region=$(REGION)" -var "aws_ami=$(AMI)")
+
+.PHONY: build_docker
+build_docker:
+	docker build -t fake-expat-claim-service:v1 .
+
+.PHONY: run_container_daemon
+run_container_daemon:
+	docker run -d -p 8000:8000 --name fake-expat-claim-service -t fake-expat-claim-service:v1
+
+.PHONY: kill_docker
+kill_docker:
+	docker kill fake-expat-claim-service
+	docker rm fake-expat-claim-service
+
