@@ -111,3 +111,4 @@ We copied the `.minikube/` directory from the host to the other VM.  AND, AND we
 
 [https://kubernetes.io/docs/tutorials/stateless-application/hello-minikube/](https://kubernetes.io/docs/tutorials/stateless-application/hello-minikube/)
 
+[https://kubernetes.io/docs/user-guide/pods/multi-container/#pod-configuration-file](https://kubernetes.io/docs/user-guide/pods/multi-container/#pod-configuration-file)
