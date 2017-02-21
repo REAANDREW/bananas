@@ -1,5 +1,11 @@
 'use strict';
 
+function notEmptyObject(arg){
+    if (Object.keys(arg).length === 0){
+        throw new Error('argument is empty object');
+    }
+}
+
 function exists(arg, msg){
     if (arg === null) {
         throwError(msg, 'argument is null');
@@ -20,5 +26,6 @@ function throwError(msg, defaultMsg){
 
 
 module.exports = {
-    exists : exists
+    exists : exists,
+    notEmptyObject: notEmptyObject
 };

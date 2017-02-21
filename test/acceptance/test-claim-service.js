@@ -71,7 +71,7 @@ describe('Claim Service', () => {
 
     describe('Submit a new claim makes the correct payment', () => {
         testCases.forEach((testCase) => {
-            describe(`for an age of ${testCase.age} and nic of ${testCase.nic}`, () => {
+            describe(`for an age of ${testCase.age} and nino of ${testCase.nino}`, () => {
                 var claimPaymentsUrl;
 
                 before( (done) => {

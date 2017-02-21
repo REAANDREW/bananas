@@ -32,7 +32,7 @@ describe('InprocClaimService', () => {
     it('Raises an exception when created without hmrcApi', () => {
         should(() => {
             new InprocClaimService({},undefined); 
-        }).throw('required hmrcApi not supplied');
+        }).throw('argument is empty object');
     });
 
     it('Puts a new claim', (done) => {
@@ -63,7 +63,7 @@ describe('InprocClaimService', () => {
 
         var age = 51;
         var years = 21;
-        var expectedPaymentAmount = awardCalculator.calculate(age,years);
+        var expectedResult = awardCalculator.calculate(age,years);
 
 
         var claim = new TestClaimBuilder().withAge(age).build();
@@ -79,7 +79,7 @@ describe('InprocClaimService', () => {
         service.put(claim, () => {
             service.getPayments(claim.id, (err, payments) => {
                 should(payments.length).equal(1);
-                should(payments[0].amount).equal(expectedPaymentAmount); 
+                should(payments[0].amount).equal(expectedResult.award); 
                 done();
             });
         });

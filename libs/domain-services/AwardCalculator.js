@@ -1,20 +1,28 @@
 'use strict';
 
 var logger = require('../logging').logger;
+var CodeContracts = require('../utils/CodeContracts');
 
 
 function AwardCalculator(){
     
     var self = {};
 
-    var addDiscount = (nic, value) => {
+    var applyDiscount = (nic, value) => {
+        var discount = {
+            value : value,
+            applied: false
+        };
         if (nic <= 20) {
-            value = value * 0.5; 
+            discount.value = value * 0.5; 
+            discount.applied = true;
         }
-        return value;
+        return discount;
     };
 
     self.calculate = (age, nic) => {
+        CodeContracts.exists(age);
+        CodeContracts.exists(nic);
 
         var value = 0;
 
@@ -26,17 +34,19 @@ function AwardCalculator(){
             value = 100;
         } 
 
-        var valueAfterDiscount = addDiscount(nic, value);
+        var discount = applyDiscount(nic, value);
 
-        logger.log('info', 'Award Calculated', {
+        var result = {
             age: age,
             nic: nic,
             value : value,
-            discount: valueAfterDiscount < value,
-            award: valueAfterDiscount 
-        });
+            discount: discount.applied,
+            award: discount.value 
+        };
 
-        return valueAfterDiscount;
+        logger.log('info', 'Award Calculated', result);
+
+        return result;
     };
 
     return self;
