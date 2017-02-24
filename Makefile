@@ -36,7 +36,7 @@ destroy:
 
 .PHONY: build_docker
 build_docker:
-	docker build -t fake-expat-claim-service:v1 .
+	docker build -t fake-expat-claim-service:v5 .
 
 .PHONY: run_container_daemon
 run_container_daemon:
