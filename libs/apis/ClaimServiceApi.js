@@ -1,6 +1,9 @@
 'use strict';
 
+var os = require('os');
 var http = require('http');
+var logging = require('../logging');
+
 
 function ClaimServiceApi(config, claimService){
     var express = require('express');
@@ -8,7 +11,10 @@ function ClaimServiceApi(config, claimService){
     var bodyParser = require('body-parser');
     app.use(bodyParser.json());
 
+    app.use(logging.requestLogger);
+
     app.get('/meta/health', function(req,res){
+        res.setHeader('X-HOSTNAME',os.hostname());
         res.status(200).end();
     });
 
@@ -53,11 +59,13 @@ function ClaimServiceApi(config, claimService){
         });
     });
 
+    app.use(logging.errorLogger);
+
     app.server = http.createServer(app);
 
     var self = {};
     self.start = (callback) => {
-        app.server.listen(config.port, callback);
+        app.server.listen(config.port, config.hostname, callback);
     };
     self.stop = (callback) => {
         app.server.close(callback);

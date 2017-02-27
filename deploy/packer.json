@@ -16,8 +16,8 @@
   "builders": [
     {
       "type": "amazon-ebs",
-      "region": "us-west-2",
-      "source_ami": "ami-a41eaec4",
+      "region": "eu-west-1",
+      "source_ami": "ami-405f7226",
       "instance_type": "t2.micro",
       "ssh_username": "ubuntu",
       "ami_name": "fake-expat-claim-service {{timestamp}}"

@@ -6,7 +6,10 @@ var CodeContracts = require('../../utils/CodeContracts');
 function InprocClaimService(awardCalculator, hmrcApi){
 
     CodeContracts.exists(awardCalculator, 'required awardCalculator not supplied');
+    CodeContracts.notEmptyObject(awardCalculator);
+
     CodeContracts.exists(hmrcApi,'required hmrcApi not supplied');
+    CodeContracts.notEmptyObject(hmrcApi);
 
     var claims = {};
     var payments = {};
@@ -20,9 +23,9 @@ function InprocClaimService(awardCalculator, hmrcApi){
         var age = moment().diff(moment(claim.dob, 'DD/MM/YYYY'), 'years');
 
         hmrcApi.getNic(claim.nino, (err, result) => {
-            var award = awardCalculator.calculate(age, result.years);
+            var calculationResult = awardCalculator.calculate(age, result.years);
 
-            payments[claim.id] = [{amount : award}];
+            payments[claim.id] = [{amount : calculationResult.award}];
 
             callback(undefined, true);
         });

@@ -1,6 +1,6 @@
 # Specify the provider and access details
 provider "aws" {
-#  region = "${var.aws_region}"
+   region = "${var.aws_region}"
 }
 
 # Create a VPC to launch our instances into
@@ -136,11 +136,95 @@ resource "aws_instance" "web" {
   # environment it's more common to have a separate private subnet for
   # backend instances.
   subnet_id = "${aws_subnet.default.id}"
+}
 
-  # We run a remote provisioner on the instance after creating it.
-  # In this case, we just install nginx and start it. By default,
-  # this should be on port 80
-  provisioner "remote-exec" {
-    inline = [ ]
+resource "aws_security_group" "postgres" {
+  name        = "postgres.fake-expat-claim-service"
+  description = "Used in the postgres.fake-expat-claim-service"
+  vpc_id      = "${aws_vpc.default.id}"
+
+  # HTTP access from the VPC
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.0.0/16"]
+  }
+
+  # outbound internet access
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+resource "aws_db_instance" "default" {
+  allocated_storage    = 10
+  engine               = "mysql"
+  engine_version       = "5.6.17"
+  instance_class       = "db.t2.micro"
+  name                 = "mydb"
+  username             = ""
+  password             = "testing"
+  parameter_group_name = "default.mysql5.6"
+  vpc_security_group_ids = ["${aws_security_gruop.postgres.id}"]
+}
+
+##  resource "aws_volume_attachment" "postgres_volume_attachment_config" {
+##    device_name = "/etc/postgresql"
+##    volume_id = "${aws_ebs_volume.postgres_volume_config.id}"
+##    instance_id = "${aws_instance.postgres.id}"
+##  }
+
+##  resource "aws_volume_attachment" "postgres_volume_attachment_log" {
+##    device_name = "/var/log/postgresql"
+##    volume_id = "${aws_ebs_volume.postgres_volume_logs.id}"
+##    instance_id = "${aws_instance.postgres.id}"
+##  }
+
+##  resource "aws_volume_attachment" "postgres_volume_attachment_database" {
+##    device_name = "/var/log/postgresql"
+##    volume_id = "${aws_ebs_volume.postgres_volume_database.id}"
+##    instance_id = "${aws_instance.postgres.id}"
+##  }
+
+##  resource "aws_instance" "postgres" {
+##    ami = "ami-405f7226"
+##    instance_type = "t2.micro"
+##    tags {
+##      Name = "postgres.fake-expat-claim-service"
+##    }
+##    # Our Security group to allow HTTP and SSH access
+##    vpc_security_group_ids = ["${aws_security_group.postgres.id}"]
+
+##    # We're going to launch into the same subnet as our ELB. In a production
+##    # environment it's more common to have a separate private subnet for
+##    # backend instances.
+##    subnet_id = "${aws_subnet.default.id}"
+##  }
+
+##  resource "aws_ebs_volume" "postgres_volume_config" {
+##    availability_zone = "${var.aws_region}a"
+##    size = 1
+##    tags {
+##      Name = "config.postgres.fake-expat-claim-service"
+##    }
+##  }
+
+##  resource "aws_ebs_volume" "postgres_volume_logs" {
+##    availability_zone = "${var.aws_region}a"
+##    size = 1
+##    tags {
+##      Name = "logs.postgres.fake-expat-claim-service"
+##    }
+##  }
+
+##  resource "aws_ebs_volume" "postgres_volume_database" {
+##    availability_zone = "${var.aws_region}a"
+##    size = 1
+##    tags {
+##      Name = "database.postgres.fake-expat-claim-service"
+##    }
+##  }

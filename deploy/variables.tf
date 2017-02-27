@@ -21,6 +21,11 @@ variable "aws_ami" {
     description = "The AWS AMI to use"
 }
 
+variable "postgres_ami" {
+    description = "The AMI to use for Postgres"
+    default     = "ami-405f7226"
+}
+
 # Ubuntu Precise 12.04 LTS (x64)
 variable "aws_amis" {
   default = {
