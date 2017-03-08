@@ -138,39 +138,39 @@ resource "aws_instance" "web" {
   subnet_id = "${aws_subnet.default.id}"
 }
 
-resource "aws_security_group" "postgres" {
-  name        = "postgres.fake-expat-claim-service"
-  description = "Used in the postgres.fake-expat-claim-service"
-  vpc_id      = "${aws_vpc.default.id}"
+#   resource "aws_security_group" "postgres" {
+#     name        = "postgres.fake-expat-claim-service"
+#     description = "Used in the postgres.fake-expat-claim-service"
+#     vpc_id      = "${aws_vpc.default.id}"
 
-  # HTTP access from the VPC
-  ingress {
-    from_port   = 5432
-    to_port     = 5432
-    protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/16"]
-  }
+#     # HTTP access from the VPC
+#     ingress {
+#       from_port   = 5432
+#       to_port     = 5432
+#       protocol    = "tcp"
+#       cidr_blocks = ["10.0.0.0/16"]
+#     }
 
-  # outbound internet access
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
+#     # outbound internet access
+#     egress {
+#       from_port   = 0
+#       to_port     = 0
+#       protocol    = "-1"
+#       cidr_blocks = ["0.0.0.0/0"]
+#     }
+#   }
 
-resource "aws_db_instance" "default" {
-  allocated_storage    = 10
-  engine               = "mysql"
-  engine_version       = "5.6.17"
-  instance_class       = "db.t2.micro"
-  name                 = "mydb"
-  username             = ""
-  password             = "testing"
-  parameter_group_name = "default.mysql5.6"
-  vpc_security_group_ids = ["${aws_security_gruop.postgres.id}"]
-}
+#   resource "aws_db_instance" "default" {
+#     allocated_storage    = 10
+#     engine               = "mysql"
+#     engine_version       = "5.6.17"
+#     instance_class       = "db.t2.micro"
+#     name                 = "mydb"
+#     username             = ""
+#     password             = "testing"
+#     parameter_group_name = "default.mysql5.6"
+#     vpc_security_group_ids = ["${aws_security_gruop.postgres.id}"]
+#   }
 
 ##  resource "aws_volume_attachment" "postgres_volume_attachment_config" {
 ##    device_name = "/etc/postgresql"

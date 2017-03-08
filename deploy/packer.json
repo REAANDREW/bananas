@@ -3,9 +3,9 @@
     {
         "type": "shell",
         "inline": [
-            "sudo apt-get update",
-            "sudo apt-get -y install python-minimal",
-            "sudo apt-get autoremove"
+            "#sudo yum -y install epel-release",
+            "#sudo yum -y update",
+            "#sudo yum -y install ansible"
         ]
     },
     {
@@ -17,9 +17,9 @@
     {
       "type": "amazon-ebs",
       "region": "eu-west-1",
-      "source_ami": "ami-405f7226",
+      "source_ami": "ami-f4634d92",
       "instance_type": "t2.micro",
-      "ssh_username": "ubuntu",
+      "ssh_username": "centos",
       "ami_name": "fake-expat-claim-service {{timestamp}}"
     }
   ],
