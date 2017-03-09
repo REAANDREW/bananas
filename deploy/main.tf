@@ -120,7 +120,9 @@ resource "aws_instance" "web" {
   }
 
   instance_type = "t2.micro"
-
+  tags {
+        Name = "fake-expat-claim-service"
+  }
   # Lookup the correct AMI based on the region
   # we specified
   # ami = "${lookup(var.aws_amis, var.aws_region)}"
