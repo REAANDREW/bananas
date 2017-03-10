@@ -10,8 +10,8 @@ RestartSec=10                       # Restart service after 10 seconds if node s
 StandardOutput=syslog               # Output to syslog
 StandardError=syslog                # Output to syslog
 SyslogIdentifier=fake-expat-claim-service
-#User=<alternate user>
-#Group=<alternate group>
+User=fecs
+Group=fecs
 Environment=NODE_ENV=production PORT=80
 
 [Install]

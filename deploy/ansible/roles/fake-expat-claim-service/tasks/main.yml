@@ -1,6 +1,17 @@
 # vim:ft=ansible:
 ---
 - block:
+  - name: Create the group
+    group:
+        name: fecs
+        state: present
+  - name: Create the user
+    user:
+        name: fecs
+        comment: "Fake Expat Claim Service"
+        group: fecs
+        system: yes
+        #seuser: no
   - name: Clone the service
     git:
         repo: https://github.com/dwp-technology-design/fake-expat-claim-service.git
@@ -9,6 +20,16 @@
     command: make package
     args:
      chdir: /opt/fake-expat-claim-service
+  - name: Change Ownership
+    file:
+        path: /opt/fake-expat-claim-service
+        owner: fecs
+        group: fecs
+        recurse: yes
+        state: directory
+        #selevel:
+        #setype: 
+        #serole: 
   - name: Copy the systemd manifest
     copy: src=fake-expat-claim-service.service dest=/etc/systemd/system/fake-expat-claim-service.service 
   - name: Enable the Service
