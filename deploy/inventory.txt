@@ -1,2 +1,2 @@
 [web]
-54.194.229.153   ansible_connection=ssh  ansible_user=centos
+54.171.83.139   ansible_connection=ssh  ansible_user=centos

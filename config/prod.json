@@ -1,6 +1,6 @@
 {
     "port" : 8008,
-    "hostname" : "0.0.0.0",
+    "hostname" : "localhost",
     "hmrcApiConfig" : {
         "nicEndpoint" : "http://not-a-real-hmrc-service-elb-1304250912.us-west-2.elb.amazonaws.com/nic"
     }
