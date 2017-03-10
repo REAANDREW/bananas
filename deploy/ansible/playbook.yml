@@ -5,3 +5,4 @@
   roles:
   - nodejs
   - fake-expat-claim-service
+  - nginx
