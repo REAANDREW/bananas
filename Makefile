@@ -27,7 +27,8 @@ build_ami:
 	(cd deploy && \
 	${PACKER_CMD} build -machine-readable packer.json | tee ami-build.log)
 	
-deploy: build_ami
+#deploy: build_ami
+deploy:
 	(cd deploy && \
 	terraform apply -var "key_name=$(KEY_NAME)" -var "public_key_path=$(PUBLIC_KEY_PATH)" -var "aws_region=$(REGION)" -var "aws_ami=$(AMI)")
 
