@@ -7,12 +7,12 @@ ExecStart=/usr/bin/node /opt/fake-expat-claim-service/app.js -c /opt/fake-expat-
 #WorkingDirectory=/opt/nodeserver   # Required on some systems
 Restart=always
 RestartSec=10                       # Restart service after 10 seconds if node service crashes
-StandardOutput=syslog               # Output to syslog
-StandardError=syslog                # Output to syslog
-SyslogIdentifier=fake-expat-claim-service
+#StandardOutput=syslog               # Output to syslog
+#StandardError=syslog                # Output to syslog
+#SyslogIdentifier=fake-expat-claim-service
 User=fecs
 Group=fecs
-Environment=NODE_ENV=production PORT=80
+#Environment=NODE_ENV=production PORT=80
 
 [Install]
 WantedBy=multi-user.target
