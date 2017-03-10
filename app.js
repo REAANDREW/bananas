@@ -15,12 +15,11 @@ var config = JSON.parse(contents);
 
 var hmrcApiProxy = new HmrcApiProxy(config.hmrcApiConfig);
 var claimServiceApiConfig = new ClaimServiceApiConfig()
-    .withPort(config.port)
-    .withHostname(config.hostname);
+    .withSocket(config.socket);
 
 var claimServiceApiFactory = new ClaimServiceApiFactory(claimServiceApiConfig,hmrcApiProxy);
 var claimServiceApi = claimServiceApiFactory.create();
 
 claimServiceApi.start(() => {
-    console.log(`Claim Service is listening on ${config.hostname}:${config.port}`);
+    console.log(`Claim Service is listening on ${config.socket}`);
 });

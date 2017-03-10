@@ -1,6 +1,7 @@
 {
-    "port" : 8008,
+    "socket" : "/var/run/fecs.socket",
     "hostname" : "localhost",
+    "port" : "80",
     "hmrcApiConfig" : {
         "nicEndpoint" : "http://not-a-real-hmrc-service-elb-1304250912.us-west-2.elb.amazonaws.com/nic"
     }

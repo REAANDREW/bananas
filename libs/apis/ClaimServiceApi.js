@@ -65,7 +65,7 @@ function ClaimServiceApi(config, claimService){
 
     var self = {};
     self.start = (callback) => {
-        app.server.listen(config.port, config.hostname, callback);
+        app.server.listen(config.socket, callback);
     };
     self.stop = (callback) => {
         app.server.close(callback);

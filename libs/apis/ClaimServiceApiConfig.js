@@ -2,12 +2,13 @@
 
 function ClaimServiceApiConfig(){
     var self = {};
-    self.port = 8080;
+    self.port = 80;
     self.scheme = 'http';
     self.hostname = 'localhost';
+    self.socket = '/var/run/fecs.socket';
 
     self.url = function(path) {
-       return self.scheme + '://' + self.hostname + ':' + self.port + path;
+       return self.scheme + '://' + self.hostname + ":" + self.port + path;
     };
 
     self.withPort = (port) => {
@@ -19,6 +20,11 @@ function ClaimServiceApiConfig(){
         self.hostname = hostname;
         return self;
     };
+
+    self.withSocket = (socket) => {
+        self.socket = socket;
+        return self;
+    }
 
     return self;
 }
