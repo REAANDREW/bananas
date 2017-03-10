@@ -67,8 +67,8 @@ resource "aws_security_group" "default" {
 
   # HTTP access from the VPC
   ingress {
-    from_port   = 80
-    to_port     = 80
+    from_port   = 8008
+    to_port     = 8008
     protocol    = "tcp"
     cidr_blocks = ["10.0.0.0/16"]
   }
@@ -99,7 +99,7 @@ resource "aws_elb" "web" {
     healthy_threshold = 2
     unhealthy_threshold = 2
     timeout = 3
-    target = "HTTP:80/meta/health"
+    target = "HTTP:8008/meta/health"
     interval = 30
   }
 }

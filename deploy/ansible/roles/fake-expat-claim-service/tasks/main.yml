@@ -30,6 +30,12 @@
         #selevel:
         #setype: 
         #serole: 
+  - name: Create logging folder
+    file:
+        path: /var/log/fecs
+        owner: fecs
+        group: fecs
+        state: directory
   - name: Copy the systemd manifest
     copy: src=fake-expat-claim-service.service dest=/etc/systemd/system/fake-expat-claim-service.service 
   - name: Enable the Service

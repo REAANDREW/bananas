@@ -21,6 +21,19 @@ You can source the `credentials.sh` which will set these variables.
 source credentials.sh
 ```
 
+## Running ansible-playbook
+
+Run the following command with the following inventory file:
+
+```yaml
+[web]
+<ip of the box>   ansible_connection=ssh  ansible_user=centos
+```
+
+```shell
+ansible-playbook -i inventory.txt ansible/playbook.yml
+```
+
 ## SSH-Agent
 
 Ensure the ssh agent is running and that the identity you wish Terraform to use is added.
