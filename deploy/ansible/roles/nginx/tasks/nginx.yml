@@ -13,13 +13,11 @@
         update_cache: yes
       with_items:
       - nginx
-  - name: Copy the NGINX Conf
-    copy: src=nginx.conf dest=/etc/nginx/nginx.conf 
-  - name: Copy the fecs Conf
-    copy: src=fecs.conf dest=/etc/nginx/conf.d/fecs.conf 
-  - name: Enable the Service
-    command: systemctl enable nginx
-  - name: Start the Service
-    command: systemctl start nginx
+    - name: Copy the NGINX Conf
+      copy: src=nginx.conf dest=/etc/nginx/nginx.conf 
+    - name: Copy the fecs Conf
+      copy: src=fecs.conf dest=/etc/nginx/conf.d/fecs.conf 
+    - name: Enable the Service
+      command: systemctl enable nginx
   become: yes
   become_method: sudo
