@@ -4,6 +4,7 @@ PUBLIC_KEY_PATH="/home/vagrant/.ssh/id_rsa_fake-expat-claim-service.pub"
 KEY_NAME="fake-expat-claim-service"
 AMI=$(shell grep 'artifact,0,id' /dev/null deploy/ami-build.log | cut -d, -f6 | cut -d: -f2)
 REGION=$(shell grep 'artifact,0,id' /dev/null deploy/ami-build.log | cut -d, -f6 | cut -d: -f1)
+PACKER_CMD="/usr/local/bin/packer"
 
 install:
 	npm install
@@ -24,7 +25,7 @@ package: install
 
 build_ami:
 	(cd deploy && \
-		packer build -machine-readable packer.json | tee ami-build.log)
+	${PACKER_CMD} build -machine-readable packer.json | tee ami-build.log)
 	
 deploy: build_ami
 	(cd deploy && \
