@@ -100,7 +100,7 @@ resource "aws_elb" "web" {
     healthy_threshold = 2
     unhealthy_threshold = 2
     timeout = 3
-    target = "HTTP/meta/health"
+    target = "HTTP:80/meta/health"
     interval = 30
   }
 }
