@@ -53,3 +53,7 @@ kill_docker:
 	docker kill fake-expat-claim-service
 	docker rm fake-expat-claim-service
 
+.PHONY: smoke
+smoke:
+	curl -I "http://$(shell cd deploy && terraform output address)/meta/health"
+
