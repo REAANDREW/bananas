@@ -5,10 +5,10 @@ function ClaimServiceApiConfig(){
     self.port = 80;
     self.scheme = 'http';
     self.hostname = 'localhost';
-    self.socket = '/var/run/fecs.socket';
+    self.socket = '/tmp/fecs.socket';
 
     self.url = function(path) {
-       return self.scheme + '://' + self.hostname + ":" + self.port + path;
+       return self.scheme + '://' + self.hostname + ':' + self.port + path;
     };
 
     self.withPort = (port) => {
@@ -24,7 +24,7 @@ function ClaimServiceApiConfig(){
     self.withSocket = (socket) => {
         self.socket = socket;
         return self;
-    }
+    };
 
     return self;
 }

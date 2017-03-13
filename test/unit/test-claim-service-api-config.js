@@ -8,7 +8,7 @@ describe('Claim Service API Configuration', () => {
     it('url returns default http://localhost:8080/fubar for path /fubar', () => {
         var config = new ClaimServiceApiConfig();
 
-        should(config.url('/fubar')).equal('http://localhost:8080/fubar');
+        should(config.url('/fubar')).equal('http://localhost:80/fubar');
     });
 
     it('witPort configures the port', () => {
