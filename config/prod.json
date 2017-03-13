@@ -1,5 +1,5 @@
 {
-    "socket" : "/var/run/fecs.socket",
+    "socket" : "/tmp/fecs.socket",
     "hostname" : "localhost",
     "port" : "80",
     "hmrcApiConfig" : {
