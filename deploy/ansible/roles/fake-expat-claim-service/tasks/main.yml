@@ -42,7 +42,7 @@
         owner: fecs
         group: nginx
         state: directory
-        mode: "2660"
+        mode: "770"
   - name: Copy the systemd manifest
     copy: src=fake-expat-claim-service.service dest=/etc/systemd/system/fake-expat-claim-service.service 
   - name: Enable the Service

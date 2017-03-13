@@ -1,6 +1,7 @@
 'use strict';
 
 var os = require('os');
+var fs = require('fs');
 var http = require('http');
 var logging = require('../logging');
 
@@ -65,6 +66,9 @@ function ClaimServiceApi(config, claimService){
 
     var self = {};
     self.start = (callback) => {
+        app.server.on('listening', () => {
+            fs.chmodSync(config.socket, '777');
+        });
         app.server.listen(config.socket, callback);
     };
     self.stop = (callback) => {
