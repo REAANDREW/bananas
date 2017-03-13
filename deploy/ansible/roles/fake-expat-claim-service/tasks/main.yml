@@ -9,7 +9,7 @@
     user:
         name: fecs
         comment: "Fake Expat Claim Service"
-        group: fecs
+        groups: fecs
         system: yes
         #seuser: no
   - name: Clone the service
@@ -36,6 +36,13 @@
         owner: fecs
         group: fecs
         state: directory
+  - name: Create sockets folder
+    file:
+        path: /var/run/fecs
+        owner: fecs
+        group: nginx
+        state: directory
+        mode: "g+xrs"
   - name: Copy the systemd manifest
     copy: src=fake-expat-claim-service.service dest=/etc/systemd/system/fake-expat-claim-service.service 
   - name: Enable the Service
