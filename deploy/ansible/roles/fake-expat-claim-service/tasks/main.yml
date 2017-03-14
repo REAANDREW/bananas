@@ -36,6 +36,7 @@
         owner: fecs
         group: fecs
         state: directory
+        mode: "777"
   - name: Create sockets folder
     file:
         path: /var/run/fecs
