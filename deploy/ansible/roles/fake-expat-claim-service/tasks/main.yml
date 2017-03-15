@@ -39,7 +39,7 @@
         mode: "777"
   - name: Create sockets folder
     file:
-        path: /var/run/fecs
+        path: /run/fecs
         owner: fecs
         group: nginx
         state: directory
