@@ -37,13 +37,6 @@
         group: fecs
         state: directory
         mode: "777"
-  - name: Create sockets folder
-    file:
-        path: /run/fecs
-        owner: fecs
-        group: nginx
-        state: directory
-        mode: "777"
   - name: Copy the systemd manifest
     copy: src=fake-expat-claim-service.service dest=/etc/systemd/system/fake-expat-claim-service.service 
   - name: Enable the Service
