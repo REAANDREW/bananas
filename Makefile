@@ -58,6 +58,6 @@ health:
 
 .PHONY: smoke
 smoke:
-	curl -X POST -H "Content-type: application/json" -d @./sample-claim.json -I "http://$(shell cd deploy && terraform output address)/claims"
+	curl -X POST -H "Content-type: application/json" -d @sample-claim.json -I "http://$(shell cd deploy && terraform output address)/claims"
 
 
