@@ -7,15 +7,11 @@ PermissionsStartOnly=true
 ExecStartPre=/bin/mkdir -m 777 -p /var/run/fecs
 ExecStartPre=/bin/chown fecs:nginx /var/run/fecs
 ExecStart=/usr/bin/node /opt/fake-expat-claim-service/app.js -c /opt/fake-expat-claim-service/config/prod.json 2>> /var/log/fecs/fake-expat-claim-service.err.log 1>> /var/log/fecs/fake-expat-claim-service.log
-#WorkingDirectory=/opt/nodeserver   # Required on some systems
+ExecStopPost=/bin/rm -r /var/run/fecs
 Restart=always
-RestartSec=10                       # Restart service after 10 seconds if node service crashes
-#StandardOutput=syslog               # Output to syslog
-#StandardError=syslog                # Output to syslog
-#SyslogIdentifier=fake-expat-claim-service
+RestartSec=10 
 User=fecs
 Group=fecs
-#Environment=NODE_ENV=production PORT=80
 
 [Install]
 WantedBy=multi-user.target
